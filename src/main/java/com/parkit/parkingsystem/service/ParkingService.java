@@ -44,6 +44,11 @@ public class ParkingService {
                 ticket.setPrice(0);
                 ticket.setInTime(inTime);
                 ticket.setOutTime(null);
+                // FPIC-974
+                // Testing if car already in ...
+                if (ticketDAO.getTicket(vehicleRegNumber).getOutTime() == null) {
+                    throw new Exception("Error processing new vehicle : already in");
+                }
                 ticketDAO.saveTicket(ticket);
                 System.out.println("Generated Ticket and saved in DB");
                 System.out.println("Please park your vehicle in spot number:"+parkingSpot.getId());
