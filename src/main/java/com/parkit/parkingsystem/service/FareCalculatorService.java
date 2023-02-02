@@ -31,6 +31,11 @@ public class FareCalculatorService {
         // round not here, but with price ...
         //double duration = Math.round(((outHour - inHour)/3600000)*100)/100;
 
+        // FPIC-974 Free parking for half hour
+        if (duration < 0.5) {
+            duration = 0;
+        }
+
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
                 ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
